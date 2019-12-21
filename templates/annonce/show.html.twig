@@ -3,6 +3,7 @@
 {% block title %}{{ annonce.title }}{% endblock %}
 
 {% block body %}
+{% set author  = annonce.author %} {# variable#}
 <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}">modifier</a>
     <div class="ad-style" style="background-image: url('{{ annonce.photocover }}');">
         <h1>{{ annonce.title }}</h1>
@@ -18,21 +19,23 @@
                 <p>{{ annonce.introduction }}</p>
             <hr>
             <div class="row">
-                <div class="col-md-8 mb-3">
+                <div class="col-md-7 mb-3">
                     {{ annonce.content | raw}}
                 </div>
-            <div class="col">
+            <div class="col border border-success bg-info">
                 <div class="row mb-3 align-items-center">
-                    <div class="col-8">
-                        <img src="http://placehold.it/64x64" alt="Avatar de ...">
+                    <div class="col-4 mt-3 ml-3">
+                        <img src="{{ author.picture }}" alt="Avatar de {{ author.fullname }}">
                     </div>
                     <div class="col">
-                        <h3>Jose</h3>
-                        <span class="badge badge-primary">4 annonces</span>
+                        <h2>{{ author.fullname }}</h2>
+                        <h3><span class="badge badge-primary">4 annonces</span></h3>
                     </div>
-                    <p>sdkldksjfks</p>
-                    <p>dfldfdfdqfdfdfd)vdlsdfkfdmlf sdsdds  lklk  ùmlkqd  ùml </p>
-                    <p>132 jkpkpozslkd5 6s szdjzokj dzsd 4s ks</p>
+                    <div class="col mt-4 ml-3">
+                        <p>sdkldksjfks</p>
+                        <p>dfldfdfdqfdfdfd)vdlsdfkfdmlf sdsdds  lklk  ùmlkqd  ùml </p>
+                        <p>132 jkpkpozslkd5 6s szdjzokj dzsd 4s ks</p>
+                    </div>
                 </div>
             </div>
         </div>

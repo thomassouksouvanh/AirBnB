@@ -81,6 +81,7 @@ class User implements UserInterface
      */
     private $annonces;
 
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -198,6 +199,11 @@ class User implements UserInterface
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getFullName()
+    {
+        return "{$this->firstname}{$this->lastname}";
     }
 
     /**
