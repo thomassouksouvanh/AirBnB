@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ annonce.title }}{% endblock %}
+
+{% block body %}
+<a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}">modifier</a>
+    <div class="ad-style" style="background-image: url('{{ annonce.photocover }}');">
+        <h1>{{ annonce.title }}</h1>
+        <div class="text-bold">
+            <h2>
+            <strong>Nombre de chambre : {{ annonce.rooms }}</strong> pour <strong>{{ annonce.price }}€
+            </strong> par nuit
+            </h2>
+            <a href="" class="btn btn-primary">Réserver</a>
+        </div>
+    </div>
+        <div class="container">
+                <p>{{ annonce.introduction }}</p>
+            <hr>
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    {{ annonce.content | raw}}
+                </div>
+            <div class="col">
+                <div class="row mb-3 align-items-center">
+                    <div class="col-8">
+                        <img src="http://placehold.it/64x64" alt="Avatar de ...">
+                    </div>
+                    <div class="col">
+                        <h3>Jose</h3>
+                        <span class="badge badge-primary">4 annonces</span>
+                    </div>
+                    <p>sdkldksjfks</p>
+                    <p>dfldfdfdqfdfdfd)vdlsdfkfdmlf sdsdds  lklk  ùmlkqd  ùml </p>
+                    <p>132 jkpkpozslkd5 6s szdjzokj dzsd 4s ks</p>
+                </div>
+            </div>
+        </div>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  {% for image in annonce.images %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}"
+                       {% if loop.first %} class="active" {% endif %}>
+                    </li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for image in annonce.images %}
+                    <div class="carousel-item {% if loop.first %} active {% endif %}">
+                        <img src="{{ image.photo }}" class="d-block w-100" alt="image de l'annonce">
+                    </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only"> < </span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only"> > </span>
+                </a>
+                    {% endfor %}
+            </div>
+
+    </div>
+{% endblock %}

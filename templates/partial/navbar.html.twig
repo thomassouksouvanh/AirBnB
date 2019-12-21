@@ -1,0 +1,27 @@
+{% block navbar %}
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-info p-4">
+            <h5 class="text-white h4">Mon compte</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+        </div>
+    </div>
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="nav">
+            <a class="nav-item nav-link" href="/">home</a>
+            <a class="nav-item nav-link" href="{{ path('annonce_index') }}">Annonce</a>
+        </ul>
+    </nav>
+</div>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
