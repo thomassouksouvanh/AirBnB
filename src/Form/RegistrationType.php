@@ -22,8 +22,9 @@ class RegistrationType extends AbstractType
             ->add('email',EmailType::class,['label'=>'Email'])
             ->add('picture',UrlType::class,['label'=>'Avatar'])
             ->add('hash',PasswordType::class,['label'=>'Password'])
+            ->add('passwordConfirm',PasswordType::class,['label'=>'Confirmation du mot de passe'])
             ->add('introduction',TextType::class,['label'=>'Présentation'])
-            ->add('description',TextareaType::class,['label'=>'Titre'])
+            ->add('description',TextareaType::class,['label'=>'Description'])
             //->add('slug')
         ;
     }

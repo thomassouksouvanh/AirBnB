@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Account registration{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {{ form_start(form) }}
+    <div class="container w-25 p-3 bg-light border border-info">
+    {{ form_start(form) }}
         {{ form_widget(form) }}
-        
+        <button type="submit" class="btn btn-info">Connexion</button>
+        <a href="{{ path('account_login') }}" class="badge badge-light">Déjà inscrit ?</a>
         {{ form_end(form) }}
     </div>
 {% endblock %}
