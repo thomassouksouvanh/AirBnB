@@ -3,55 +3,58 @@
 {% block title %}{{ annonce.title }}{% endblock %}
 
 {% block body %}
-{% set author  = annonce.author %} {# variable#}
-<a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}">modifier</a>
+    {% set author  = annonce.author %} {# variable#}
+    <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}">modifier</a>
     <div class="ad-style" style="background-image: url('{{ annonce.photocover }}');">
         <h1>{{ annonce.title }}</h1>
         <div class="text-bold">
             <h2>
-            <strong>Nombre de chambre : {{ annonce.rooms }}</strong> pour <strong>{{ annonce.price }}€
-            </strong> par nuit
+                <strong>Nombre de chambre : {{ annonce.rooms }}</strong> pour <strong>{{ annonce.price }}€
+                </strong> par nuit
             </h2>
             <a href="" class="btn btn-primary">Réserver</a>
         </div>
     </div>
-        <div class="container">
-                <p>{{ annonce.introduction }}</p>
-            <hr>
-            <div class="row">
-                <div class="col-md-7 mb-3">
-                    {{ annonce.content | raw}}
-                </div>
-            <div class="col border border-success bg-info">
-                <div class="row mb-3 align-items-center">
-                    <div class="col-4 mt-3 ml-3">
+    <div class="container">
+    <p>{{ annonce.introduction }}</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-7 mb-3">
+            {{ annonce.content | raw }}
+        </div>
+        <div class="col border border-success bg-info">
+            <div class="row mb-3 align-items-center">
+                <div class="col-5 mt-3 ml-3">
+                    <a href="{{ path('user_show',{ 'slug':author.slug }) }}">
                         <img src="{{ author.picture }}" alt="Avatar de {{ author.fullname }}">
-                    </div>
-                    <div class="col">
+                    </a>
+                </div>
+                <div class="col-5">
+                    <a href="{{ path('user_show',{ 'slug':author.slug }) }}">
                         <h2>{{ author.fullname }}</h2>
                         <h3><span class="badge badge-primary">4 annonces</span></h3>
-                    </div>
-                    <div class="col mt-4 ml-3">
-                        <p>sdkldksjfks</p>
-                        <p>dfldfdfdqfdfdfd)vdlsdfkfdmlf sdsdds  lklk  ùmlkqd  ùml </p>
-                        <p>132 jkpkpozslkd5 6s szdjzokj dzsd 4s ks</p>
-                    </div>
+                    </a>
+                </div>
+                <div class="col-8 mt-4 ml-3">
+                    <p>{{ author.introduction }}</p>
+                    <p>{{ author.description }}</p>
                 </div>
             </div>
         </div>
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  {% for image in annonce.images %}
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}"
-                       {% if loop.first %} class="active" {% endif %}>
-                    </li>
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for image in annonce.images %}
-                    <div class="carousel-item {% if loop.first %} active {% endif %}">
-                        <img src="{{ image.photo }}" class="d-block w-100" alt="image de l'annonce">
-                    </div>
+    </div>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for image in annonce.images %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}"
+                        {% if loop.first %} class="active" {% endif %}>
+                </li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for image in annonce.images %}
+                <div class="carousel-item {% if loop.first %} active {% endif %}">
+                    <img src="{{ image.photo }}" class="d-block w-100" alt="image de l'annonce">
+                </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only"> < </span>
@@ -60,8 +63,8 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only"> > </span>
                 </a>
-                    {% endfor %}
-            </div>
+            {% endfor %}
+        </div>
 
     </div>
 {% endblock %}

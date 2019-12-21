@@ -1,33 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Index des annonces{% endblock %}
-
 {% block body %}
-    <div class="text-bold m-4">
-        <h1>Voici les annonces de nos hôtes</h1>
-    </div>
-        <div class="container">
-            <div class="row">
-                {% for annonce in annonces %}
-                    {%  set url= path('annonce_show', {'slug': annonce.slug})%}
-                    <div class="col-md-6">
-                        <div class="card border-warning m-4">
-                            <div class="card-header"><h4>Nombre de chambre: {{annonce.rooms}}
-                                <div>
-                                    <strong>{{annonce.price}} € / nuit</strong><br>
-                                    </div>
-                                        <small>Pas encore noté</small></h4>
-                                </div>
-                                    <div class="card-body text-info">
-                                        <a href="{{ url }}"><img src="{{ annonce.photocover }}" alt="Image couverture de l'appartement"
-                                                style="display: block; width: 100%; height: 50vh;"></a>
-                                    <h5 class="card-title m-3"><strong>{{annonce.title}}</strong></h5>
-                                <p class="card-text">{{annonce.introduction}}</p>
-                                        <a href="{{ url }}" class="btn btn-light">Voir l'annonce</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+    <div class="container">
+        <div class="text-bold m-4">
+            <h1>Voici les annonces de nos hôtes</h1>
         </div>
+        <div class="row">
+            {% for annonce in annonces %}
+            {% set url= path('annonce_show', {'slug': annonce.slug}) %}
+            {% include 'annonce/_annonce.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

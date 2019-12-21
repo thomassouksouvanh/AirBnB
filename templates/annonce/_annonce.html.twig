@@ -1,0 +1,18 @@
+<div class="col-md-3">
+    <div class="card border-warning m-3">
+        <div class="card-header">
+            <h4>Nombre de chambre: {{ annonce.rooms }}
+                <div>
+                    <strong>{{ annonce.price }} € / nuit</strong><br>
+                </div>
+                <small>Pas encore noté</small></h4>
+        </div>
+        <div class="card-body text-info">
+            <a href="{{ url }}"><img src="{{ annonce.photocover }}" alt="Image couverture de l'appartement"
+                                     style="display: block; width: 100%; height: 20vh;"></a>
+            <h5 class="card-title m-3"><strong>{{ annonce.title }}</strong></h5>
+            <p class="card-text">{{ annonce.introduction }}</p>
+            <a href="{{ url }}" class="btn btn-light">Voir l'annonce</a>
+        </div>
+    </div>
+</div>

@@ -27,3 +27,31 @@
 {
     margin-left: 100px;
 }
+.avatar {
+    width: 20vh;
+    height: 20vh;
+    border-radius: 30%;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    background-color: gray;
+}
+
+.card-header
+{
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+.avatar-mini
+{
+    max-width: 24px;
+    max-height: 24px;
+}
+
+.avatarmedium
+{
+    width: 4vh;
+    height: 4vw;
+}

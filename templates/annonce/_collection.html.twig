@@ -1,6 +1,6 @@
 {% block _annonce_images_widget %}
     <div class="form-group alert alert-dismissible alert-primary">
-    {{ form_widget(form) }}
+        {{ form_widget(form) }}
         <input type="hidden" id="widgets-count" value="">
         <button type="button" id="addImage" class="btn btn-secondary">Ajouter des photos</button>
     </div>
@@ -25,7 +25,8 @@
                     </div>
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
+                    <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X
+                    </button>
                 </div>
             </div>
         </div>
