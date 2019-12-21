@@ -20,11 +20,11 @@ class RegistrationType extends AbstractType
             ->add('firstname',TextType::class, ['label'=>'Prénom'])
             ->add('lastname',TextType::class, ['label'=>'Nom'])
             ->add('email',EmailType::class,['label'=>'Email'])
-            ->add('picture',UrlType::class,['label'=>'Avatar'])
+            //->add('picture',UrlType::class,['label'=>'Avatar'])
             ->add('hash',PasswordType::class,['label'=>'Password'])
             ->add('passwordConfirm',PasswordType::class,['label'=>'Confirmation du mot de passe'])
-            ->add('introduction',TextType::class,['label'=>'Présentation'])
-            ->add('description',TextareaType::class,['label'=>'Description'])
+            //->add('introduction',TextType::class,['label'=>'Présentation'])
+            //->add('description',TextareaType::class,['label'=>'Description'])
             //->add('slug')
         ;
     }

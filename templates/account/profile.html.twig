@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container text-primary">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-dismissible alert-primary">
+                    <h2 class="text-center"><i class="far fa-address-card"></i> Informations du Profil</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.firstname) }}
+                            {{ form_row(form.lastname) }}
+                            {{ form_row(form.email) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.picture) }}
+                            {{ form_row(form.introduction) }}
+                            {{ form_row(form.description) }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="avatar">
+                                <img src="">
+                                <div>
+                                <h2 class="alert-heading ">Enrengistrer mon annonce</h2>
+                                <button class="btn btn-warning"><i class="fas fa-check"></i> Modifier les informations</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+

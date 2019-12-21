@@ -4,7 +4,11 @@
 {% block body %}
     <div class="container w-25 p-3 bg-light border border-info">
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.hash) }}
+        {{ form_row(form.passwordConfirm) }}
         <button type="submit" class="btn btn-info">Connexion</button>
         <a href="{{ path('account_login') }}" class="badge badge-light">Déjà inscrit ?</a>
         {{ form_end(form) }}

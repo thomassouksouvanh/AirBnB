@@ -5,21 +5,21 @@
 {% block body %}
 <div class="container w-25 p-3 bg-light border border-info">
     <h1>Connexion</h1>
-    <form action="{{ path('account_login') }}" method="POST">
+    <form action="{{ path('account_login') }}"  method="POST">
         {% if hasError %}
             <div class="alert alert-danger">Une erreur est survenue, email ou mot de passe invalid</div>
         {% endif %}
-        <form class="form-group">
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="text" name="_username" id="email" class="form-control" placeholder="Adresse mail..." value="{{ username }}"> <!-- _username pour symfony -->
-        </form>
-        <form class="form-group">
+        </div>
+        <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" name="_password" id="password" class="form-control" placeholder="Mot de passe..."> <!-- _password pour symfony -->
-        </form>
-        <form class="form-group">
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-info">Connexion</button>
-        </form>
+        </div>
     </form>
 </div>
 {% endblock %}
