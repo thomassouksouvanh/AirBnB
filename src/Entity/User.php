@@ -86,11 +86,17 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="client", orphanRemoval=true)
+     */
+    private $reservations;
+
 
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     /**
@@ -313,6 +319,37 @@ class User implements UserInterface
         if ($this->userRoles->contains($userRole)) {
             $this->userRoles->removeElement($userRole);
             $userRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getClient() === $this) {
+                $reservation->setClient(null);
+            }
         }
 
         return $this;

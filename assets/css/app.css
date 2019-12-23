@@ -2,9 +2,12 @@
     box-sizing: content-box;
 }
 
-.container{
-    margin-top: 20px;
+hr {
+    height: 1px;
+    border: 0;
+    background-color: gray;
 }
+
 
 .ad-style
 {
@@ -23,25 +26,10 @@
     color: white;
 }
 
-.badge-light
-{
-    margin-left: 100px;
-}
 .avatar {
     width: 20vh;
     height: 20vh;
     border-radius: 5%;
-}
-
-hr {
-    height: 1px;
-    border: 0;
-    background-color: gray;
-}
-
-.card-header
-{
-    background-color: rgba(0, 0, 0, 0.11);
 }
 
 .avatar-mini
@@ -51,4 +39,22 @@ hr {
     border-radius: 50%;
 }
 
+.badge-light
+{
+    margin-left: 100px;
+}
+
+.card-header
+{
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+.container{
+    margin-top: 20px;
+}
+
+.jumbotron
+{
+    background-color: rgba(80, 214, 200, 0.82)
+}
 

@@ -13,6 +13,9 @@
             <h5 class="card-title m-3"><strong>{{ annonce.title }}</strong></h5>
             <p class="card-text">{{ annonce.introduction }}</p>
             <a href="{{ url }}" class="btn btn-light">Voir l'annonce</a>
+            {%  if app.user and app.user is same as (annonce.author) %}
+                <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+            {% endif %}
         </div>
     </div>
 </div>
