@@ -8,9 +8,9 @@ use App\Form\AccountType;
 use App\Form\RegistrationType;
 use App\Form\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,6 +61,7 @@ class AccountController extends AbstractController
      * @return Response
      * @Route("/account/profile",name="account_profile")
      * Modification des informations du profile
+     * @IsGranted("ROLE_USER")
      */
     public function profile(Request $request, EntityManagerInterface $entityManager)
     {
@@ -72,10 +73,9 @@ class AccountController extends AbstractController
         {
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash('success','Vos modifications ont bien été pris en compte');
         }
-
-        $this->addFlash('success','Vos modifications ont bien été pris en compte');
-
 
         return $this->render('account/profile.html.twig',
             [
@@ -88,12 +88,15 @@ class AccountController extends AbstractController
      * @Route("/account/updatepassword",name="account_update_password")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $entityManager
      * @return Response
+     * @IsGranted("ROLE_USER")
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
-        $user = $this->getUser();
         $updatePassword = new UpdatePassword();
+        $user = $this->getUser();
+
         $form = $this->createForm(UpdatePasswordType::class,$updatePassword);
         $form->handleRequest($request);
 
@@ -110,10 +113,12 @@ class AccountController extends AbstractController
 
                 $user->setHash($hash);
 
-                $entityManager->persist();
+                $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success','Votre nouveau de passe a bien été modifié');
+                $this->addFlash('success','Votre nouveau mot de passe a bien été modifié');
+
+                return $this->redirectToRoute('account_profile');
             }
         }
         return $this->render('account/updatepassword.html.twig',
@@ -125,6 +130,7 @@ class AccountController extends AbstractController
     /**
      * Permet d'affichere le profil de l'user connecté
      * @Route("/account", name="account_index")
+     * @IsGranted("ROLE_USER")
      */
     public function myAccount()
     {

@@ -30,7 +30,7 @@
 .avatar {
     width: 20vh;
     height: 20vh;
-    border-radius: 30%;
+    border-radius: 5%;
 }
 
 hr {
@@ -46,12 +46,9 @@ hr {
 
 .avatar-mini
 {
-    max-width: 24px;
-    max-height: 24px;
+    width: 3vw;
+    height: 3vh;
+    border-radius: 50%;
 }
 
-.avatarmedium
-{
-    width: 4vh;
-    height: 4vw;
-}
+

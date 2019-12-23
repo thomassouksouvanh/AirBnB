@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -34,7 +35,7 @@ class Annonce implements FormTypeInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, minMessage="Le titre doit contenir plus de 10 caracteres")
+     * @Assert\Length(min=10, minMessage="Le titre doit contenir plus de 10 caractères")
      */
     private $title;
 
@@ -50,7 +51,7 @@ class Annonce implements FormTypeInterface
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=10, minMessage="Votre introduction doit contenit plus de 10 caracteres")
+     * @Assert\Length(min=10, minMessage="Votre introduction doit contenit plus de 10 caractères")
      */
     private $introduction;
 

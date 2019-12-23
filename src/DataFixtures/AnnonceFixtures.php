@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Annonce;
 use App\Entity\Image;
+use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,6 +23,21 @@ class AnnonceFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('FR-fr');
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $adminUser->setFirstName('Thomas')
+            ->setLastName('Souksouvanh')
+            ->setEmail('thomas.souksouvanh@sfr.fr')
+            ->setIntroduction($faker->sentence())
+            ->setDescription($faker->sentence())
+            ->setHash($this->encoder->encodePassword($adminUser, 'Or4txIij'))
+            ->setPicture('https://drive.google.com/file/d/1e0pqOY-aLqb99GvdnbkOU_kPt_Lr_4Yk/view?usp=sharing')
+            ->addUserRole($adminRole);
+
+        $manager->persist($adminUser);
 
         // Nous gérons les utilisateurs
         $users = [];
@@ -35,7 +51,7 @@ class AnnonceFixtures extends Fixture
             $picture = 'https://randomuser.me/api/portraits/';
             $pictureId = $faker->numberBetween(1, 99) . '.jpg';
             $picture .= ($genre == 'male' ? 'men/' : 'women/') . $pictureId;
-            $hash = $this->encoderPassword($user,'password');
+            $hash = $this->encoder->encodePassword($user,'password');
 
             $user->setFirstName($faker->firstname($genre))
                 ->setLastName($faker->lastName)
