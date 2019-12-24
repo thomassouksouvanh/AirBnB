@@ -11,7 +11,7 @@
                 <strong>Nombre de chambre : {{ annonce.rooms }}</strong> pour <strong>{{ annonce.price }}€
                 </strong> par nuit
             </h2>
-            <a href="" class="btn btn-primary">Réserver</a>
+            <a href="{{ path('reservation_create',{'slug':annonce.slug}) }}" class="btn btn-primary">Réserver</a>
             {%  if app.user and app.user is same as (annonce.author) %}
             <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
                 <a href="{{ path('annonce_delete',{'slug':annonce.slug}) }}" class="btn btn-danger"
@@ -64,7 +64,7 @@
                     <div class="carousel-inner">
                         {% for image in annonce.images %}
                             <div class="carousel-item {% if loop.first %} active {% endif %}">
-                                <img src="{{ image.photo }}" class="d-block w-50" alt="image de l'annonce">
+                                <img src="{{ image.photo }}" class="d-block img-fluid" alt="image de l'annonce">
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleIndicators"
                                role="button" data-slide="prev">

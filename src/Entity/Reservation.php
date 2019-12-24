@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Reservation
 {
@@ -30,11 +33,13 @@ class Reservation
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message="Attention la date d'arrivée n'est pas au bon format")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message="Attention la date de départ n'est pas au bon format")
      */
     private $endDate;
 
@@ -47,6 +52,39 @@ class Reservation
      * @ORM\Column(type="float")
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
+     * Callback appelé à chaque fois qu'on créé une reservation
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        // mise a jour de la date
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime();
+        }
+
+        // prix de la chambre fois le nombre de nuit
+        if(empty($this->amount)){
+            $this->amount= $this->annonce->getPrice() * $this->getDuration();
+        }
+    }
+
+    /**
+     * recurpère le nombre de nuit
+     * objet de la method datetime
+     */
+    public function getDuration()
+    {
+        $diff = $this->endDate->diff($this->startDate);
+        return $diff->days;
+
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +159,18 @@ class Reservation
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }

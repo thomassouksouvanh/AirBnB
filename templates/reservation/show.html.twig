@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block title %}Reservation n° {{ reservation.id }}{% endblock %}
+
+{% block body %}
+    {% set annonce = reservation.annonce %}
+    {% set author = annonce.author %}
+    <div class="container">
+        <h1>Votre reservation n° {{ reservation.id }}</h1>
+        <!-- variable request existe dans app , query permet de prendre tout ce qu'il ya dans le parametre GET
+        option withAlert pour afficher une alerte-->
+        {% if app.request.query.get('withAlert') %}
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Félicitation !</h4>
+                <h5>Votre réservation auprès de
+                    <strong>
+                        <a href="{{ path('user_show',{'slug':author.slug}) }}">{{ author.fullName }}</a>
+                    </strong>
+                    pour l'annonce
+                    <strong>
+                        <a href="{{ path('annonce_show',{'slug':annonce.slug}) }}">{{ annonce.title }}</a>
+                    </strong>
+                    ,a bien été prise en compte !
+                </h5>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <h2>Détails</h2>
+                    <dl class="row">
+                        <dt class="col-md-8">Numéro de reservation:</dt>
+                        <dd class="col-md-4">{{ reservation.id }}</dd>
+                        <dt class="col-md-8">Fait le :</dt>
+                        <dd class="col-md-4">{{ reservation.createdAt | date('d/m/Y') }}</dd>
+                        <dt class="col-md-8">Date d'arrivée</dt>
+                        <dd class="col-md-4">{{ reservation.startDate | date('d/m/Y') }}</dd>
+                        <dt class="col-md-8">Date de départ</dt>
+                        <dd class="col-md-4">{{ reservation.endDate | date('d/m/Y') }}</dd>
+                        <dt class="col-md-8">Nombre de nuit</dt>
+                        <dd class="col-md-4">{{ reservation.duration }}</dd>
+                        <dt class="col-md-8">Montant total</dt>
+                        <dd class="col-md-4">{{ reservation.amount }} €</dd>
+                        <dd class="col">
+                            <h5>Commentaire</h5>
+                            {{ reservation.comment }}
+                        </dd>
+                    </dl>
+                    <hr>
+                    <h2 class="alert-heading">Votre hôte</h2>
+                    <div class="row">
+                        <div class="col-5">
+                            <img src="{{ author.picture }}" alt="avatar de {{ author.fullName }}">
+                        </div>
+                        <div class="col-7">
+                            <h5>Plus d'info sur :</h5>
+                            <h4><a href="{{ path('user_show',{'slug':author.slug}) }}">{{ author.firstname }}</a></h4>
+                            </h5>
+                            <h4><span class="badge badge-warning">{{ author | length }} annonce(s)</span></h4>
+                        </div>
+                    </div>
+                    {{ author.description | raw }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-secondary">
+                    <div class="alert-heading"><h2>Votre hébergement</h2></div>
+                    <h4>
+                        <a href="{{ path('annonce_show',{'slug':annonce.slug}) }}">{{ annonce.title }}</a>
+                    </h4>
+                    <img src="{{ annonce.photocover }}" alt="photoCouverture {{ annonce.title }}" class="img-fluid">
+                    {{ annonce.content | raw }}
+                    <a href="{{ path('annonce_show', {'slug': annonce.slug}) }}" class="btn btn-info">Pour plus
+                        d'information</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

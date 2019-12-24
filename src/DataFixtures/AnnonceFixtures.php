@@ -106,19 +106,22 @@ class AnnonceFixtures extends Fixture
                 $createdAt = $faker->dateTimeBetween('-6 months');
                 $startDate = $faker->dateTimeBetween('-3 months');
 
+                //gestion de la date de fin
                 $duration = mt_rand(3,10);
-
                 $endDate = (clone $startDate)->modify(("+$duration days"));
+
                 $amount = $annonce->getPrice() * $duration;
 
                 $client = $users[mt_rand(0, count($users) -1)];
+                $comment =$faker->paragraph();
 
                 $reservation->setClient($client)
                     ->setAnnonce($annonce)
                     ->setStartDate($startDate)
                     ->setEndDate($endDate)
                     ->setCreatedAt($createdAt)
-                    ->setAmount($amount);
+                    ->setAmount($amount)
+                    ->setComment($comment);
 
                 $manager->persist($reservation);
             }
