@@ -2,7 +2,7 @@
     <div class="form-group alert alert-dismissible alert-primary">
         {{ form_widget(form) }}
         <input type="hidden" id="widgets-count" value="">
-        <button type="button" id="addImage" class="btn btn-secondary">Ajouter des photos</button>
+        <button type="button" id="add_image" class="btn btn-secondary">Ajouter d'autres photos de l'annonce</button>
     </div>
 {% endblock %}
 
@@ -13,14 +13,18 @@
 {% block _annonce_images_entry_widget %}
     <div class="form-group alert alert-dismissible alert-primary">
         <div class="form-group" id="block_{{ id }}">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
             <div class="row">
                 <div class="col-10">
                     <div class="row">
                         <div class="col">
+                        {{ form_row(form.photo) }}
                             {{ form_widget(form.photo) }}
                         </div>
                         <div class="col">
                             {{ form_widget(form.caption) }}
+                            {{ form_errors(form.caption) }}
                         </div>
                     </div>
                 </div>
@@ -29,6 +33,44 @@
                     </button>
                 </div>
             </div>
+            {{ form_end(form) }}
         </div>
     </div>
+
+    <script>
+        const $ = require('jquery');
+
+        $('#add_image').click(function () {
+            //je récupere le numéro des fututrs champs que je vais créer
+            const index = +$('#widgets-count').val();
+
+            // je récupère le prototype des entrées
+            const tmpl = $('#add_image').data('prototype').replace(/__name__/g, index);
+            // j'injecte ce code au sein de la div
+            $('#add_image').append(tmpl);
+
+            $('#widgets-count').val(index + 1);
+
+            // je gère le bouton supprimer
+            handleDeleteButtons();
+        });
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function(){
+                const target = this.dataset.target;
+                $(target).remove();
+            });
+        }
+
+        function updateCounter() {
+            const count = +$('#add_image div.form-group').length;
+            $("#widgets-count").val(count);
+        }
+
+
+        updateCounter();
+        handleDeleteButtons();</script>
 {% endblock %}
+{% block javascript %}
+
+{%  endblock %}

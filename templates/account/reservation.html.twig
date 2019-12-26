@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des réservations de l'utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="alert alert-info">
+            <h1>Mes réservations</h1>
+            <p>Retrouvez toutes vos réservations</p>
+        </div>
+        {% for reservation in app.user.reservations %}
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">N° de réservation</th>
+                    <th scope="col"></th>
+                    <th scope="col">Annnonce</th>
+                    <th scope="col">Date de réservation</th>
+                    <th scope="col">Montant de la réservation</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">{{ reservation.id }}</th>
+                    <td><img src="{{ reservation.annonce.photocover }}" alt="phtocover"></td>
+                    <td>{{ reservation.annonce.title }}</td>
+                    <td>{{ reservation.startDate | date('d/m/Y') }} au {{ reservation.endDate | date('d/m/Y') }}</td>
+                    <td>{{ reservation.amount}} €</td>
+                    <td><a href="{{ path('reservation_show', {'id': reservation.id }) }}" class="btn btn-primary">
+                            Pour plus d'information</a></td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+

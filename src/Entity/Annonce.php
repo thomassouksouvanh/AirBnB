@@ -108,6 +108,31 @@ class Annonce implements FormTypeInterface
         }
     }
 
+    /**
+     * Permet d'obtenir un tableau des jours qui ne sont pas disponibles pour cette annonce
+     * @return array un tableau d'objets datetime représentant les jours d'occupation
+     */
+    public function getNotAvailableDays()
+    {
+        $notAvailableDays = [];
+
+        foreach ($this->reservations as $reservation)
+        {
+            // Calculer les jours qui se trouvent entre la date d'arrivée et de départ
+            $resultat = range(
+                $reservation->getStartDate()->getTimeStamp(),
+                $reservation->getEndDate()->getTimeStamp(),
+                24 * 60 * 60
+            );
+                $days = array_map(function ($dayTimeStamp)
+                {
+                    return new \DateTime(date('Y-m-d',$dayTimeStamp));
+                },$resultat);
+                $notAvailableDays = array_merge($notAvailableDays,$days);
+        }
+        return $notAvailableDays;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

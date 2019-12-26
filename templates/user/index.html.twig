@@ -9,7 +9,7 @@
             </div>
             <div class="col-8 ">
                 <h1>{{ user.fullName }}</h1>
-                <h5>{{ user.introduction | raw }}</h5>
+                <h5>Info: {{ user.introduction | raw }}</h5>
                 <h3><span class="badge badge-warning border border-danger">{{ user.annonces | length }} annonces</span>
                 </h3>
                 {% if user is same as(app.user) %}
@@ -21,6 +21,7 @@
         </div>
         <hr>
         <div class="resumeAnnonce">
+            <h4>Petite description</h4>
             <p>{{ user.description }}</p>
             <h2>Les annonces de {{ user.fullName }}</h2>
         </div>

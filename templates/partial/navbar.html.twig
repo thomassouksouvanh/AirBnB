@@ -1,6 +1,6 @@
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-        <a class="navbar-brand" href="/" ><img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cleanpng.com%2Ffree%2Fhome.html&psig=AOvVaw1H9OQrl3ym5aMRtSQzVM2-&ust=1577091914419000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCf9a3zyOYCFQAAAAAdAAAAABAD"  alt="home"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light ">
+        <a class="navbar-brand text-dark" href="/" >Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,24 +8,23 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('annonce_index') }}">Annonces</a>
+                    <a class="nav-link text-dark" href="{{ path('annonce_index') }}">Annonces</a>
                 </li>
 
             </ul>
             {% if app.user %}
                 <div class="dropdown">
                     <a href="{{ path('account_index') }}">
-                        <img src="{{ app.user.picture }}" class="avatar-mini" alt="photo de profil de l'utilisateur connecté">
+                        <img src="{{ app.user.picture }}" class="avatar-mini" alt="photo de profil connecté">
                     </a>
                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte
                     </button>
                     <div class="dropdown-menu dropdown-menu-right bg-info text-center" aria-labelledby="dropdownMenu1">
-                        <a class="text-white" href="{{ path('annonce_new') }}">Créer une nouvelle annonce</a>
-                        <div class="dropdown-divider"></div>
                         <a class="text-white" href="{{ path('account_index') }}">Mon profil</a>
                         <div class="dropdown-divider"></div>
-                        <a class="text-white" href="#">Mes réservations</a>
+                        <a class="text-white" href="{{ path('account_reservation') }}">Mes réservations</a>
                         <div class="dropdown-divider"></div>
+                        <a class="text-white" href="{{ path('annonce_new') }}">Créer une annonce</a>
                         <div class="dropdown-divider"></div>
                         <a class="text-white" href="{{ path('account_logout') }}">Déconnexion</a>
                     </div>
@@ -37,7 +36,6 @@
                     <div class="dropdown-menu bg-info text-center" aria-labelledby="dropdownMenu1">
                         <a class="text-white" href="{{ path('account_registrer') }}">Inscription</a>
                         <div class="dropdown-divider"></div>
-
                         <a class="text-white" href="{{ path('account_login') }}">Connexion</a>
                     </div>
                 </div>

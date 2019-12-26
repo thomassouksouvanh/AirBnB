@@ -33,14 +33,19 @@ class AnnonceType extends AbstractType
         $builder
             ->add('title',TextType::class,['label'=>'Titre'])
             //->add('slug',TextType::class)
-            ->add('price',MoneyType::class,['label'=>'Prix par nuit'])
+            ->add('price',MoneyType::class,['label'=> false,'attr'=> [
+                'placeholder' => 'Prix par nuit'
+            ]])
             ->add('introduction',TextType::class,['label'=>'Introduction'])
-            ->add('content',TextareaType::class,['label'=>'Commentaire'])
-            ->add('photocover',UrlType::class,['label'=>'Photo principale'
-            ])
-            ->add('rooms',IntegerType::class,['label'=>'Nombre de chambre'])
+            ->add('content',TextareaType::class,['label'=>false,'attr'=> [
+                'placeholder' => 'Commentaire']])
+            ->add('photocover',UrlType::class,['label'=>false,'attr'=> [
+                'placeholder' => 'Photo principale'
+            ]])
+            ->add('rooms',IntegerType::class,['label'=> false,'attr' =>
+                ['placeholder'=>'Chambre']])
             ->add('images', CollectionType::class,[
-                        'label' => 'Vous pouvez rajouter des photos',
+                        'label' => false,
                         'entry_type' => ImageType::class,
                         'allow_add' => true,
                         'allow_delete' => true

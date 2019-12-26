@@ -3,6 +3,11 @@
 {% block title %}
 Reservation de l'annonce : {{ annonce.title }}
 {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+          integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous"/>
+{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -11,7 +16,6 @@ Reservation de l'annonce : {{ annonce.title }}
             <h2>{{ annonce.title }}</h2>
             <p>Vous êtes sur le point de réserver le bien de <strong> {{ annonce.author.fullName }}</strong></p>
             <p>Veuillez renseigner les champs néccessaires</p>
-
         {{ form_start(form) }}
         <div class=" alert alert-warning">
             <h2>Quelles sont les dates qui vous intérresse?</h2>
@@ -28,11 +32,48 @@ Reservation de l'annonce : {{ annonce.title }}
             </div>
         </div>
         <h2>Montant du séjour : <span id="amount"></span> €</h2>
-        <h4><span id="days">0</span> nuit(s) à {{ annonce.price }} / nuit</h4>
+        <h4><span id="days">0</span> nuit(s) à {{ annonce.price | number_format }} / nuit</h4>
             <button type="submit" class="btn btn-success">Je réserve</button>
         {{ form_end(form) }}
         </div>
     </div>
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+                integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function()
+            {
+                $('#reservation_startDate, #reservation_endDate').datepicker(
+                    {
+                        format: 'dd/mm/yyyy',
+                        datesDisabled:[
+                            {% for day in annonce.notAvailableDays %}
+                            "{{ day.format('d/m/y') }}",
+                            {% endfor %} ],
+                        startDate: new Date()
+                    });
+                $('#reservation_startDate, #reservation_endDate').on('change',caculateAmount);
+            });
+
+            function caculateAmount()
+            { //calculer les dates et le montant
+                const endDate = new Date($('#reservation_endDate').val().replace(/(\d+)\/(\d+)\/(d{4})/,'$3-$2-$1'));
+                const startDate = new Date($('#reservation_startDate').val().replace(/(\d+)\/(\d+)\/(d{4})/,'$3-$2-$1'));
+                if(startDate && endDate && startDate < endDate)
+                {
+                    const DAY_TIME = 24 * 60 * 60 * 1000;
+                    const interval = endDate.getTime()-startDate.getTime();
+                    const everyday = interval / DAY_TIME;
+                    const amount = everyday * {{ annonce.price }};
+
+                        $('#days').text(everyday);
+                    $('#amount').text(amount.toLocaleString('fr-FR'));
+                }
+            }
+        </script>
+    {% endblock %}
+
+
 {% endblock %}
 
 

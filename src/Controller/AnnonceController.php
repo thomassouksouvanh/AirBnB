@@ -48,10 +48,10 @@ class AnnonceController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            foreach($annonce->getImages() as $image)
+            foreach($annonce->getImages() as $photo)
             {
-                $image->setAnnonce($annonce);
-                $entityManager->persist($image);
+                $photo->setAnnonce($annonce);
+                $entityManager->persist($photo);
             }
 
             $annonce->setAuthor($this->getUser());
@@ -103,10 +103,10 @@ class AnnonceController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            foreach($annonce->getImages() as $image)
+            foreach($annonce->getImages() as $photo)
             {
-                $image->setAnnonce($annonce);
-                $entityManager->persist($image);
+                $photo->setAnnonce($annonce);
+                $entityManager->persist($photo);
             }
             $entityManager->persist($annonce);
             $entityManager->flush();

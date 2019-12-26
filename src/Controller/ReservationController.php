@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ReservationController extends AbstractController
 {
     /**
@@ -33,13 +34,24 @@ class ReservationController extends AbstractController
             $user = $this->getUser();
 
             $reservation->setClient($user)
-                        ->setAnnonce($annonce);
-            $entityManager->persist($reservation);
-            $entityManager->flush();
+                ->setAnnonce($annonce);
 
-            //envoi un parametre en GET pour afficher le message d'allert si reservation réussie
-            return  $this->redirectToRoute('reservation_show',['id'=>$annonce->getId(),
-                'withAlert'=> true ]);
+            // si les dates ne sont pas disponible, message d'erreur
+            if (!$reservation->isReservationDates()) {
+                $this->addFlash(
+                    'warning',
+                    'Les dates que vous avez choisi ne peuvent être réservé: elles sont déjà prises'
+                );
+            } else {
+                // sinon enrengistrement et redirection
+
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+
+                //envoi un parametre en GET pour afficher le message d'allert si reservation réussie
+                return $this->redirectToRoute('reservation_show',
+                    ['id' => $reservation->getId(), 'withAlert' => true]);
+            }
         }
 
         return $this->render('reservation/reservation.html.twig', [
@@ -50,7 +62,7 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * Permet d'afficher une reservation
+     * affiche une reservation
      * @Route("/reservation/{id}" ,name="reservation_show")
      * @param Reservation $reservation
      * @return Response

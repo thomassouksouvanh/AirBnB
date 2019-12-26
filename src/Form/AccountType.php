@@ -18,10 +18,10 @@ class AccountType extends AbstractType
             ->add('firstname',TextType::class,['label'=>'Prénom'])
             ->add('lastname',TextType::class,['label'=>'Prénom'])
             ->add('email',EmailType::class,['label' =>'votre email'])
-            ->add('picture',TextType::class,['label'=>'Votre avatar'])
+            ->add('picture',TextType::class,['label'=>'Votre avatar','required'=>false])
             //->add('hash')
-            ->add('introduction',TextareaType::class,['label'=>'Introduction'])
-            ->add('description',TextareaType::class,['label'=>'Votre description'])
+            ->add('introduction',TextareaType::class,['label'=>'Introduction','required'=>false])
+            ->add('description',TextareaType::class,['label'=>'Votre description','required'=>false])
             //->add('slug')
         ;
     }
