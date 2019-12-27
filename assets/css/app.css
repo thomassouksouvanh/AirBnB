@@ -7,6 +7,12 @@ hr {
     background-color: gray;
 }
 
+a:link
+{
+    text-decoration: none;
+    color: #000000;
+}
+
 .ad-style
 {
     padding: 2em;
@@ -35,6 +41,12 @@ img
     border-radius: 5%;
 }
 
+.avatar-medium
+{
+    width: 6vw;
+    height: 7vh;
+    border-radius: 40%;
+}
 .avatar-mini
 {
     width: 4vw;
@@ -45,6 +57,11 @@ img
 .badge-light
 {
     margin-left: 100px;
+}
+
+.btn
+{
+    margin: 5px;
 }
 
 .card-header

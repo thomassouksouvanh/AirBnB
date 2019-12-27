@@ -63,10 +63,16 @@
                 <div class="alert alert-secondary">
                     <h2 class="alert-heading">Votre avis compte !</h2>
                     {%  if date() > date(reservation.endDate) %}
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <button type="submit" class="btn btn-success">Confirmer</button>
-                        {{ form_end(form) }}
+                        {% set comment = reservation.annonce.commentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <blockquote>{{ comment.content }}</blockquote>
+                            <strong>Note : </strong>{% include 'partial/rating.html.twig' with {'rating':comment.rating} %}
+                        {%  else %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-success">Confirmer</button>
+                            {{ form_end(form) }}
+                        {% endif %}
                     {% else %}
                         <p>Vous ne pourrez commenter seulement après votre retour auprès de votre hôte</p>
                         <h2>Bon séjour <i class="fas fa-grin-alt"></i></h2>

@@ -18,6 +18,7 @@
                     <th scope="col">Date de réservation</th>
                     <th scope="col">Montant de la réservation</th>
                     <th scope="col">Action</th>
+                    <th scope="col">Avis</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,15 +27,22 @@
                     <td><img class="imgtable" src="{{ reservation.annonce.photocover }}" alt="phtocover"></td>
                     <td>{{ reservation.annonce.title }}</td>
                     <td>{{ reservation.startDate | date('d/m/Y') }} au {{ reservation.endDate | date('d/m/Y') }}</td>
-                    <td>{{ reservation.amount}} €</td>
+                    <td>{{ reservation.amount }} €</td>
                     <td><a href="{{ path('reservation_show', {'id': reservation.id }) }}" class="btn btn-primary">
-                            Pour plus d'information</a>
-                        {% set comment = annonce. %}
+                            Pour plus d'information</a></td>
+                    <td>
+                        {% if reservation in app.user.reservations %}
+                            {% set annonce = reservation.annonce %}
+                            {% set comment = annonce.commentFromAuthor(app.user) %}
                         {% if comment is not null %}
-                        <strong>Vous n'avez pas encore donné votre avis</strong>
-                        {%  include 'partial/rating.html.twig' with comment.rating %}
-                        {%  else %}
-                        <a href="{{ path('reservation_show', {'id': reservation.id}) }}"></a>
+                            <div class="note">
+                                <strong>Note donnée : </strong>{% include 'partial/rating.html.twig' with {'rating':comment.rating} %}
+                            </div>
+                        {% else %}
+                            <div class="note">
+                            <a href="{{ path('reservation_show',{'id':reservation.id}) }}#comment">Je donne mon avis</a>
+                        </div>
+                        {% endif %}
                         {% endif %}
                     </td>
                 </tr>

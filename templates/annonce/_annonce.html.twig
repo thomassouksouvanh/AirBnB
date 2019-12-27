@@ -18,7 +18,8 @@
             <p class="card-text">{{ annonce.introduction }}</p>
             <a href="{{ url }}" class="btn btn-light border">Voir l'annonce</a>
             {%  if app.user and app.user is same as (annonce.author) %}
-                <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+                <a href="{{ path('annonce_edit',{'slug':annonce.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
+                <a href="{{ path('annonce_delete',{'slug':annonce.slug}) }}" class="btn btn-danger">Modifier l'annonce</a>
             {% endif %}
         </div>
     </div>

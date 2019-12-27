@@ -381,7 +381,10 @@ class Annonce implements FormTypeInterface
         return $this;
     }
 
-
+    /**
+     * @return float|int
+     * Permet de récupérer une note moyenne d'une annonce
+     */
     public function getAvgRatings()
     {   // calculer la somme des notes
             $sum = array_reduce($this->comments->toArray(),function ($total,$comment){
@@ -390,6 +393,19 @@ class Annonce implements FormTypeInterface
         // faire la division pour avoir la moyenne
             if(count($this->comments) > 0) return $sum / count($this->comments);
             return 0;
+    }
 
+    /**
+     * Permet de récupérer un user par rapport a une annonce
+     * @param User $author
+     * @return Comment | null
+     */
+    public function getCommentFromAuthor(User $author)
+    {
+        foreach ($this->comments as $comment)
+        {
+            if($comment->getAuthor()===$author) return $comment;
+        }
+        return null;
     }
 }
