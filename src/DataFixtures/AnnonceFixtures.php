@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Annonce;
+use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Reservation;
 use App\Entity\Role;
@@ -74,10 +75,10 @@ class AnnonceFixtures extends Fixture
 
             $annonce = new Annonce();
 
-            $title = $faker->sentence();
-            $photoCover = $faker->imageURL(1000, 350);
+            $title        = $faker->sentence();
+            $photoCover   = $faker->imageURL(1000, 350);
             $introduction = $faker->paragraph(2);
-            $content = '<p>' . join('<p></p>', $faker->paragraphs(5)) . '</p>';
+            $content      = '<p>' . join('<p></p>', $faker->paragraphs(5)) . '</p>';
 
             $user = $users[mt_rand(0, count($users) - 1)];
 
@@ -88,32 +89,30 @@ class AnnonceFixtures extends Fixture
                 ->setPrice(mt_rand(40, 200))
                 ->setRooms(mt_rand(1, 5))
                 ->setAuthor($user);
-                $manager->persist($annonce);
-            }
+            $manager->persist($annonce);
 
-            for($j = 1 ; $j <= mt_rand(3,9) ; $j++ )
-            {
+
+            for ($j = 1; $j <= mt_rand(3, 9); $j++) {
                 $image = new Image();
-                $image->setPhoto($faker->imageUrl($width = 600, $height = 380))
+                $image->setPhoto($faker->imageUrl())
                     ->setCaption($faker->sentence())
                     ->setAnnonce($annonce);
                 $manager->persist($image);
             }
 
-            for($j = 1 ; $j <= mt_rand(0,7) ; $j++)
-            {
+            for ($j = 1; $j <= mt_rand(0, 7); $j++) {
                 $reservation = new Reservation();
-                $createdAt = $faker->dateTimeBetween('-6 months');
-                $startDate = $faker->dateTimeBetween('-3 months');
+                $createdAt   = $faker->dateTimeBetween('-6 months');
+                $startDate   = $faker->dateTimeBetween('-3 months');
 
                 //gestion de la date de fin
-                $duration = mt_rand(3,10);
-                $endDate = (clone $startDate)->modify(("+$duration days"));
+                $duration = mt_rand(3, 10);
+                $endDate  = (clone $startDate)->modify(("+$duration days"));
 
                 $amount = $annonce->getPrice() * $duration;
 
-                $client = $users[mt_rand(0, count($users) -1)];
-                $comment =$faker->paragraph();
+                $client  = $users[mt_rand(0, count($users) - 1)];
+                $comment = $faker->paragraph();
 
                 $reservation->setClient($client)
                     ->setAnnonce($annonce)
@@ -124,7 +123,18 @@ class AnnonceFixtures extends Fixture
                     ->setComment($comment);
 
                 $manager->persist($reservation);
+
+                //getstion des commentaires
+                if (mt_rand(0, 1)) {
+                    $comment = new Comment();
+                    $comment->setContent($faker->paragraph())
+                        ->setRating(mt_rand(1, 5))
+                        ->setAuthor($client)
+                        ->setAnnonce($annonce);
+                    $manager->persist($comment);
+                }
             }
+        }
             $manager->flush();
     }
 

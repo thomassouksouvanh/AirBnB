@@ -23,12 +23,20 @@
                 <tbody>
                 <tr>
                     <th scope="row">{{ reservation.id }}</th>
-                    <td><img src="{{ reservation.annonce.photocover }}" alt="phtocover"></td>
+                    <td><img class="imgtable" src="{{ reservation.annonce.photocover }}" alt="phtocover"></td>
                     <td>{{ reservation.annonce.title }}</td>
                     <td>{{ reservation.startDate | date('d/m/Y') }} au {{ reservation.endDate | date('d/m/Y') }}</td>
                     <td>{{ reservation.amount}} €</td>
                     <td><a href="{{ path('reservation_show', {'id': reservation.id }) }}" class="btn btn-primary">
-                            Pour plus d'information</a></td>
+                            Pour plus d'information</a>
+                        {% set comment = annonce. %}
+                        {% if comment is not null %}
+                        <strong>Vous n'avez pas encore donné votre avis</strong>
+                        {%  include 'partial/rating.html.twig' with comment.rating %}
+                        {%  else %}
+                        <a href="{{ path('reservation_show', {'id': reservation.id}) }}"></a>
+                        {% endif %}
+                    </td>
                 </tr>
                 </tbody>
             </table>

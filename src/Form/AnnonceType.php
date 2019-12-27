@@ -43,7 +43,11 @@ class AnnonceType extends AbstractType
                 'placeholder' => 'Photo principale'
             ]])
             ->add('rooms',IntegerType::class,['label'=> false,'attr' =>
-                ['placeholder'=>'Chambre']])
+                [
+                    'placeholder'=>'Chambre',
+                    'min'=> 0,
+                    'max'=> 10,
+                ]])
             ->add('images', CollectionType::class,[
                         'label' => false,
                         'entry_type' => ImageType::class,

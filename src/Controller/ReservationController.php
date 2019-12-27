@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Comment;
 use App\Entity\Reservation;
+use App\Form\CommentType;
 use App\Form\ReservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -65,10 +67,32 @@ class ReservationController extends AbstractController
      * affiche une reservation
      * @Route("/reservation/{id}" ,name="reservation_show")
      * @param Reservation $reservation
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function show(Reservation $reservation)
+    public function show(Reservation $reservation,Request $request, EntityManagerInterface $entityManager)
     {
-        return $this->render('reservation/show.html.twig',['reservation' => $reservation]);
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class,$comment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $comment->setAnnonce($reservation->getAnnonce())
+                    ->setAuthor($this->getUser());
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success','Votre avis a bien été pris en compte');
+
+            return $this->redirectToRoute('account_reservation');
+        }
+        return $this->render('reservation/show.html.twig',
+            [
+                'reservation' => $reservation,
+                'form' => $form->createView()
+            ]);
     }
 }

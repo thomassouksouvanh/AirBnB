@@ -5,7 +5,11 @@
                 <div>
                     <strong>{{ annonce.price }} € / nuit</strong><br>
                 </div>
+            {% if annonce.comments | length > 0 %}
+                {% include'partial/rating.html.twig' with {'rating':annonce.avgRatings } %}
+            {% else %}
                 <small>Pas encore noté</small></h4>
+            {% endif %}
         </div>
         <div class="card-body">
             <a href="{{ url }}"><img src="{{ annonce.photocover }}" alt="Image couverture de l'appartement"

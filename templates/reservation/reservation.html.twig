@@ -61,15 +61,15 @@ Reservation de l'annonce : {{ annonce.title }}
                 const startDate = new Date($('#reservation_startDate').val().replace(/(\d+)\/(\d+)\/(d{4})/,'$3-$2-$1'));
                 if(startDate && endDate && startDate < endDate)
                 {
-                    const DAY_TIME = 24 * 60 * 60 * 1000;
-                    const interval = endDate.getTime()-startDate.getTime();
-                    const everyday = interval / DAY_TIME;
-                    const amount = everyday * {{ annonce.price }};
+                    const interval = endDate.getTime() - startDate.getTime();
+                    const days = interval / (1000 * 3600 * 24);
+                    const amount = days * {{ annonce.price }};
 
                         $('#days').text(everyday);
-                    $('#amount').text(amount.toLocaleString('fr-FR'));
+                    $('#amount').text(amount.toLocaleString(document));
                 }
             }
+
         </script>
     {% endblock %}
 
