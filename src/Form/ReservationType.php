@@ -46,6 +46,9 @@ class ReservationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
+            'validation_groups' => [
+                'Default','front'
+            ]
         ]);
     }
 }

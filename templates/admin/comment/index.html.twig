@@ -1,20 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Hello AdminCommentController!{% endblock %}
+{% block title %}Administration des commentaires{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/thomas/PhpstormProjects/airbnb/my_project_name/src/Controller/AdminCommentController.php'|file_link(0) }}">src/Controller/AdminCommentController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/thomas/PhpstormProjects/airbnb/my_project_name/templates/admin_comment/index.html.twig'|file_link(0) }}">templates/admin_comment/index.html.twig</a></code></li>
-    </ul>
+<div class="container-fluid">
+    <div class="alert text-center alert-dark" role="alert"><h1>Gestion des commentaires</h1></div>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Annonce</th>
+            <th scope="col">Commentaire</th>
+            <th scope="col">Date</th>
+            <th scope="col">Note</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+            <td>{{ comment.id }}</td>
+            <td><img class="avatar-medium" src="{{ comment.author.picture }}" alt="photo de l'auteur">{{ comment.author.fullName }}</td>
+            <td>{{ comment.annonce.title }}</td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.createdAt | date('d/m/Y à H:i') }}</td>
+            <td>{{ comment.rating | length }}</td>
+            <td>
+                <a href="{{ path('admin_comment_edit',{'id':comment.id}) }}" class="btn btn-info">
+                    <i class="fas fa-pen"></i>
+                </a>
+                <a href="{{ path('admin_comment_delete',{'id':comment.id}) }}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+         {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

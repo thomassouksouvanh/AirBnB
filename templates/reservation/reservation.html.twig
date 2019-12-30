@@ -65,8 +65,8 @@ Reservation de l'annonce : {{ annonce.title }}
                     const days = interval / (1000 * 3600 * 24);
                     const amount = days * {{ annonce.price }};
 
-                        $('#days').text(everyday);
-                    $('#amount').text(amount.toLocaleString(document));
+                        $('#days').text(days);
+                    $('#amount').text(amount.toLocaleString('fr-FR');
                 }
             }
 

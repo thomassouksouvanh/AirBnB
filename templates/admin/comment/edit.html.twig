@@ -1,10 +1,22 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block title %}Edition des commentaires de l'administrateur{% endblock %}
+
+
 {% block body %}
-
-{% endblock %}
-
-{% block title %}
-
+    <div class="container">
+            <div class="alert alert-info">
+                <h3>Commentaire N° {{ comments.id }} de {{ comments.author.fullName }}</h3>
+                L'annonce : <strong>{{ comments.annonce.title }}</strong> <br>
+                fait à : {{ comments.createdAt | date('d/m/y H:i')}}
+            </div>
+            <h3>Commentaire</h3>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+            <button type="submit" class="btn btn-info">
+                <i class="fas fa-check"></i> Modifier commentaire
+            </button>
+                {{ form_end(form) }}
+    </div>
 {% endblock %}
 

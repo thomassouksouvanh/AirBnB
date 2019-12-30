@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edition des réservations de l'administrateur{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="alert text-center alert-dark" role="alert">
+            <h1>Edition de la réservation {{ reservation.id }}</h1>
+        </div>
+        <div class="card">
+            {{ form_start(form) }}
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h4>Date de d'arrivée</h4>
+                    {{ form_row(form.startDate) }}
+                    <h4>Date de départ</h4>
+                    {{ form_row(form.endDate) }}
+                    <h4>Commentaire</h4>
+                    {{ form_row(form.comment) }}
+                </div>
+                <div class="col">
+                    <h4>Client</h4>
+                    {{ form_row(form.client) }}
+                    <h4>Titre de l'annonce</h4>
+                    {{ form_row(form.annonce) }}
+                    <button type="submit" class="btn btn-info"><i class="fas fa-check"> Enregistrer les modifications</i></button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+

@@ -35,14 +35,17 @@ class Reservation
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention la date d'arrivée n'est pas au bon format")
-     * @Assert\GreaterThanOrEqual("today",message="Vous ne pouvez réserver , qu'a partir d'aujourd'hui!")
+     * @Assert\GreaterThanOrEqual("today",message="Vous ne pouvez réserver , qu'a partir d'aujourd'hui!",
+     * groups={"front"})
+     *
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention la date de départ n'est pas au bon format")
-     * @Assert\GreaterThan(propertyPath="startDate", message="La date de départ doit être supérieur à la date d'arrivée")
+     * @Assert\GreaterThan(propertyPath="startDate", message="La date de départ doit être supérieur à la date d'arrivée",
+     * groups={"front"})
      */
     private $endDate;
 

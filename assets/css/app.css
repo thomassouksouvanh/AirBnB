@@ -7,6 +7,7 @@ hr {
     background-color: gray;
 }
 
+
 a:link
 {
     text-decoration: none;
@@ -44,8 +45,8 @@ img
 .avatar-medium
 {
     width: 6vw;
-    height: 7vh;
-    border-radius: 40%;
+    height: 6vh;
+    border-radius: 25%;
 }
 .avatar-mini
 {
@@ -81,6 +82,12 @@ img
 .fas,.far
 {color: #ffcc00}
 
+.form-group
+{
+    display: flex;
+    justify-content: center;
+    margin: 3vh;
+}
 .jumbotron
 {
     background-color: rgba(80, 214, 200, 0.82)
@@ -90,4 +97,13 @@ img
 {
     width: 30vw;
     height: 30vh;
+}
+
+nav
+{
+    margin-bottom: 50px;
+}
+
+.text-mt-5{
+    color: #C9C9C9;
 }
