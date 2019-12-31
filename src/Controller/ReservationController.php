@@ -95,4 +95,53 @@ class ReservationController extends AbstractController
                 'form' => $form->createView()
             ]);
     }
+
+    /**
+     * @Route("/reservation/{id}/edit", name="reservation_edit")
+     * @param Reservation $reservation
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function edit(Reservation $reservation,Request $request,EntityManagerInterface $entityManager)
+    {
+        $form = $this->createForm(ReservationType::class,$reservation);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+         $entityManager->persist($reservation);
+         $entityManager->flush();
+
+         $this->addFlash(
+             'success',
+             'Votre réservation a été bien modifiée');
+
+         return $this->redirectToRoute('account_reservation');
+        }
+        return $this->render('reservation/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'reservation' => $reservation
+
+            ]);
+    }
+
+    /**
+     * @param Reservation $reservation
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * @Route("/reservation/{id}/delete", name="reservation_delete")
+     */
+    public function delete(Reservation $reservation,EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($reservation);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'Votre réservation est a présent supprimée'
+        );
+
+        return $this->redirectToRoute('account_reservation');
+    }
 }

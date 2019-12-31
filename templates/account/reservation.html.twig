@@ -9,7 +9,7 @@
             <p>Retrouvez toutes vos réservations</p>
         </div>
         {% for reservation in app.user.reservations %}
-            <table class="table">
+            <table class="table table-hover">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">N° de réservation</th>
@@ -28,19 +28,23 @@
                     <td>{{ reservation.annonce.title }}</td>
                     <td>{{ reservation.startDate | date('d/m/Y') }} au {{ reservation.endDate | date('d/m/Y') }}</td>
                     <td>{{ reservation.amount }} €</td>
-                    <td><a href="{{ path('reservation_show', {'id': reservation.id }) }}" class="btn btn-primary">
-                            Pour plus d'information</a></td>
+                    <td>
+                        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}" class="btn btn-secondary">Modifier ma reservation</a>
+                        <a href="{{ path('reservation_delete',{'id':reservation.id}) }}" class="btn btn-danger">Annuler ma reservation</a>
                     <td>
                         {% if reservation in app.user.reservations %}
                             {% set annonce = reservation.annonce %}
                             {% set comment = annonce.commentFromAuthor(app.user) %}
                         {% if comment is not null %}
                             <div class="note">
-                                <strong>Note donnée : </strong>{% include 'partial/rating.html.twig' with {'rating':comment.rating} %}
+                                <strong>Note donnée : </strong>
+                                {% include 'partial/rating.html.twig' with {'rating':comment.rating} %}
                             </div>
                         {% else %}
                             <div class="note">
                             <a href="{{ path('reservation_show',{'id':reservation.id}) }}#comment">Je donne mon avis</a>
+                                <a href="{{ path('reservation_show', {'id': reservation.id }) }}" class="btn btn-primary">
+                                    Pour plus d'information</a>
                         </div>
                         {% endif %}
                         {% endif %}

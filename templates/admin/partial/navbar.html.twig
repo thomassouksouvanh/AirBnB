@@ -31,16 +31,8 @@
 
 
             {% if app.user %}
-                <div class="dropdown">
-                    <a href="{{ path('account_index') }}">
-                        <img src="{{ app.user.picture }}" class="avatar-mini" alt="photo de profil connecté">
-                    </a>
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right bg-secondary text-center" aria-labelledby="dropdownMenu1">
-                        <a class="text-white" href="{{ path('account_logout') }}">Déconnexion</a>
-                    </div>
-                </div>
+                <img src="{{ app.user.picture }}" class="avatar-mini" alt="photo administrateur">
+                <a class="text-white" href="{{ path('account_logout') }}">Déconnexion</a>
             {% endif %}
         </div>
     </nav>

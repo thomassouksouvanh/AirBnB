@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la réservation{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="alert alert-warning">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.startDate) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.endDate) }}
+                </div>
+            </div>
+            <h3>Commentaire</h3>
+            {{ form_row(form.comment) }}
+        <button type="submit" class="btn btn-secondary">Modifier la reservation</button>
+        {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+

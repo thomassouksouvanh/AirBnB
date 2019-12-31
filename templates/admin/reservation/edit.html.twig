@@ -1,7 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block title %}Edition des réservations de l'administrateur{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+          integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous"/>
+{% endblock %}
 {% block body %}
     <div class="container-fluid">
         <div class="alert text-center alert-dark" role="alert">
@@ -33,5 +37,22 @@
     </div>
 {% endblock %}
 
-
-
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+            integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous">
+    </script>
+        <script>
+        $(document).ready(function()
+        {
+        $('#admin_reservation_startDate, #admin_reservation_endDate').datepicker(
+        {
+        datesDisabled:[
+        {% for day in reservation.reservationDates %}
+            "{{ day.format('d/m/y') }}",
+        {% endfor %} ],
+        startDate: new Date()
+        });
+        $('#admin_reservation_startDate, #admin_reservation_endDate').on('change',caculateAmount);
+        });
+        </script>
+{% endblock %}

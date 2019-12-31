@@ -37,15 +37,14 @@ Reservation de l'annonce : {{ annonce.title }}
         {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
     {% block javascripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
-                integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous"></script>
         <script>
             $(document).ready(function()
             {
                 $('#reservation_startDate, #reservation_endDate').datepicker(
                     {
-                        format: 'dd/mm/yyyy',
                         datesDisabled:[
                             {% for day in annonce.notAvailableDays %}
                             "{{ day.format('d/m/y') }}",
@@ -65,16 +64,12 @@ Reservation de l'annonce : {{ annonce.title }}
                     const days = interval / (1000 * 3600 * 24);
                     const amount = days * {{ annonce.price }};
 
-                        $('#days').text(days);
-                    $('#amount').text(amount.toLocaleString('fr-FR');
+                    $('#days').text(days);
+                    $('#amount').text(amount.toLocaleString('fr-FR'));
                 }
             }
 
         </script>
     {% endblock %}
-
-
-{% endblock %}
-
 
 
