@@ -15,10 +15,12 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('photo', UrlType::class,[
-                'label' => 'photo','required'=>false
+                'label' => 'photo','required'=>false,
+                'attr' => ['placeholder' => 'photo']
             ])
             ->add('caption',TextType::class,[
-                'label' => 'description','required'=>false
+                'label' => 'description','required'=>false,
+                'attr' => ['placeholder' => 'photo']
             ])
             //->add('annonce')
         ;

@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+
+
 use App\Entity\Annonce;
+use App\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -27,6 +30,7 @@ class AnnonceType extends AbstractType
      * permet d'avoir la config des champ de base
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @param ImageType images
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -49,10 +53,10 @@ class AnnonceType extends AbstractType
                     'max'=> 10,
                 ]])
             ->add('images', CollectionType::class,[
-                        'label' => false,
-                        'entry_type' => ImageType::class,
-                        'allow_add' => true,
-                        'allow_delete' => true
+                'label' => false,
+                'entry_type' => ImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true
             ]);
     }
 

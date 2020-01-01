@@ -26,18 +26,16 @@
                 <div class="col-2">
                     {{ form_row(form.price) }}
                 </div>
-                <div class="col-2">
-                    {{ form_row(form.photocover) }}
-                 </div>
-                <div class="col">
-                    {{ form_row(form.images) }}
-                </div>
             </div>
             <div class="row">
+                <div class="col">
+                    {{ form_row(form.photocover) }}
+                </div>
                 <div class="col">
                     {{ form_row(form.content) }}
                 </div>
             </div>
+            {{ form_row(form.images) }}
             <div class="alert alert-success clearfix mt-3 text-primary">
                 <h2 class="alert-heading ">Enrengistrer mon annonce</h2>
                 <p>Vous êtes sur le point de créer votre annonce !!!</p>
@@ -46,6 +44,34 @@
         {{ form_end(form) }}
         </div>
     </div>
+
 {% endblock %}
+{% block javascripts %}
+    <script>
+        $('#annonce_images').click(function(){
+            const index = +$('#widgets-counter').val();
 
+            const tmpl = $('#annonce_images').data('prototype').replace(/___name__/g, index);
 
+            $('#annonce_images').append(tmpl);
+            $('#widgets-counter').val(index + 1);
+
+            handleDeleteButtons();
+        });
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function () {
+                const target = this.dataset.target;
+                $(target).remove()
+            });
+        }
+        function updateCounter(){
+            const count = +$('#annonce_images div.form-group').length;
+
+            $('#widgets-counter').val(count);
+        }
+
+    updateCounter();
+    handleDeleteButtons();
+    </script>
+{% endblock %}

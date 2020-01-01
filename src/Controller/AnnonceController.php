@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Image;
 use App\Form\AnnonceType;
+use App\Form\ImageType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -42,16 +44,16 @@ class AnnonceController extends AbstractController
     {
         $annonce = new Annonce();
 
-        $form = $this->createForm(AnnonceType::class,$annonce);
-        $form->handleRequest($request);
+        $form  = $this->createForm(AnnonceType::class,$annonce);
 
+        $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            foreach($annonce->getImages() as $photo)
+            foreach($annonce->getImages() as $image)
             {
-                $photo->setAnnonce($annonce);
-                $entityManager->persist($photo);
+                $image->setAnnonce($annonce);
+                $entityManager->persist($image);
             }
 
             $annonce->setAuthor($this->getUser());
@@ -99,14 +101,15 @@ class AnnonceController extends AbstractController
     public function edit(Request $request,Annonce $annonce,EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(AnnonceType::class,$annonce);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            foreach($annonce->getImages() as $photo)
+            foreach($annonce->getImages() as $image)
             {
-                $photo->setAnnonce($annonce);
-                $entityManager->persist($photo);
+                $image->setAnnonce($annonce);
+                $entityManager->persist($image);
             }
             $entityManager->persist($annonce);
             $entityManager->flush();
@@ -120,7 +123,8 @@ class AnnonceController extends AbstractController
 
         return $this->render('annonce/edit.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'annonce' => $annonce
             ]);
     }
 

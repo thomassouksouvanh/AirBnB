@@ -1,9 +1,8 @@
 {% block _annonce_images_widget %}
-    <div class="form-group alert alert-dismissible alert-primary">
         {{ form_widget(form) }}
-        <input type="hidden" id="widgets-count" value="">
-        <button type="button" id="add_image" class="btn btn-secondary">Ajouter d'autres photos de l'annonce</button>
-    </div>
+            <input type="hidden" id="widgets-counter" value="">
+    <button type="button" id="annonce_images" class="btn btn-secondary">
+        <i class="far fa-plus-square"> Ajouter d'autres photos de l'annonce</i></button>
 {% endblock %}
 
 {% block _annonce_images_entry_row %}
@@ -13,14 +12,12 @@
 {% block _annonce_images_entry_widget %}
     <div class="form-group alert alert-dismissible alert-primary">
         <div class="form-group" id="block_{{ id }}">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
             <div class="row">
                 <div class="col-10">
                     <div class="row">
                         <div class="col">
-                        {{ form_row(form.photo) }}
-                            {{ form_widget(form.photo) }}
+                        {{ form_widget(form.photo) }}
+                            {{ form_errors(form.photo) }}
                         </div>
                         <div class="col">
                             {{ form_widget(form.caption) }}
@@ -28,49 +25,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X
-                    </button>
-                </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger"
+                                data-action="delete" data-target="#block_{{ id }}">x
+                        </button>
+                    </div>
             </div>
-            {{ form_end(form) }}
         </div>
     </div>
-
+{% endblock %}
+{% block javascripts %}
     <script>
-        const $ = require('jquery');
+        $('#annonce_images').click(function(){
+            const index = +$('#widgets-counter').val();
 
-        $('#add_image').click(function () {
-            //je récupere le numéro des fututrs champs que je vais créer
-            const index = +$('#widgets-count').val();
+            const tmpl = $('#annonce_images').data('prototype').replace(/___name__/g, index);
 
-            // je récupère le prototype des entrées
-            const tmpl = $('#add_image').data('prototype').replace(/__name__/g, index);
-            // j'injecte ce code au sein de la div
-            $('#add_image').append(tmpl);
+            $('#annonce_images').append(tmpl);
+            $('#widgets-counter').val(index + 1);
 
-            $('#widgets-count').val(index + 1);
-
-            // je gère le bouton supprimer
             handleDeleteButtons();
         });
 
         function handleDeleteButtons() {
-            $('button[data-action="delete"]').click(function(){
+            $('button[data-action="delete"]').click(function () {
                 const target = this.dataset.target;
-                $(target).remove();
+                $(target).remove()
             });
         }
+        function updateCounter(){
+            const count = +$('#annonce_images div.form-group').length;
 
-        function updateCounter() {
-            const count = +$('#add_image div.form-group').length;
-            $("#widgets-count").val(count);
+            $('#widgets-counter').val(count);
         }
 
-
         updateCounter();
-        handleDeleteButtons();</script>
+        handleDeleteButtons();
+    </script>
 {% endblock %}
-{% block javascript %}
-
-{%  endblock %}
