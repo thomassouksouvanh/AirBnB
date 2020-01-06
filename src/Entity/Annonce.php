@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
- *     fields={"title","image"},
+ *     fields={"title"},
  *     message="Une annonce possède déja ce titre,merci de le modifier"
  * )
  *

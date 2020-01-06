@@ -62,9 +62,18 @@ img
 
 .btn
 {
-    margin: 5px;
+    margin: 3px;
+}
+.card
+{
+    height: 68vh;
 }
 
+.card-text, .card-title
+{
+    overflow: hidden;
+    height: 6vh;
+}
 .card-header
 {
     background-color: rgba(0, 0, 0, 0.11);
@@ -79,8 +88,14 @@ img
     color: firebrick !important;
 }
 
-.fas,.far
-{color: #ffcc00}
+.fa-bars
+{
+    color: #565656;
+}
+
+.fa-star
+{
+    color: #ffcc00}
 
 .form-group
 {
