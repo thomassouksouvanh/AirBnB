@@ -22,12 +22,17 @@
             {% for reservation in reservations %}
                 <tr>
                     <td>{{ reservation.id }}</td>
-                    <td><img class="avatar-medium" src="{{ reservation.client.picture }}" alt="photo de l'auteur"> {{ reservation.client.fullName }}</td>
+                    <td><img class="avatar-medium" src="{{ reservation.client.picture }}" alt="photo de l'auteur">
+                        {{ reservation.client.fullName }}
+                    </td>
                     <td>{{ reservation.startDate | date('d/m/y')}} au {{ reservation.endDate | date('d/m/y')}}</td>
                     <td>{{ reservation.createdAt | date('d/m/Y à H:i') }}</td>
                     <td>{{ reservation.amount }} €</td>
                     <td>{{ reservation.annonce.title }}</td>
-                    <td><img class="avatar-medium" src="{{ reservation.annonce.author.picture }}" alt="photo de l'auteur"> {{ reservation.annonce.author.fullName }}</td>
+                    <td>
+                        <img class="avatar-medium" src="{{ reservation.annonce.author.picture }}"
+                             alt="photo de l'auteur"> {{ reservation.annonce.author.fullName }}
+                    </td>
                     <td>
                         <a href="{{ path('admin_reservation_edit',{'id':reservation.id}) }}" class="btn btn-info">
                             <i class="fas fa-pen"></i>
@@ -40,5 +45,6 @@
             {% endfor %}
             </tbody>
         </table>
+        {{ knp_pagination_render(reservations) }}
     </div>
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Form\AdminReservationType;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +17,22 @@ class AdminReservationController extends AbstractController
 {
     /**
      * @Route("/admin/reservations", name="admin_reservation_index")
-     * @param ReservationRepository $repository
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function index(ReservationRepository $repository)
+    public function index(Request $request,PaginatorInterface $paginator)
     {
+        $data = $this->getDoctrine()->getRepository(Reservation::class)->findBy([],[]);
+
+        $reservations = $paginator->paginate(
+            $data, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
+
         return $this->render('admin/reservation/index.html.twig', [
-            'reservations' => $repository->findAll()
+            'reservations' => $reservations
         ]);
     }
 

@@ -1,0 +1,39 @@
+{% extends '../base.html.twig' %}
+
+{% block title %}Administration des utilisateurs!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="alert text-center alert-dark" role="alert"><h1>Gestion des annonces</h1></div>
+        <table class="table table-striped  table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">ID Role</th>
+                <th scope="col">Nom Prénom</th>
+                <th scope="col"></th>
+                <th scope="col">Nb d'annonce</th>
+                <th scope="col">NB Réservation</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for user in users %}
+                <th scope="row">{{ annonce.id }}</th>
+                <td>{{ user.fullName }}</td>
+                <td>
+                    <img class="avatar-medium mr-3" src="{{user.picture }}" alt="avatar de {{ user.fullName }}">
+                    {{ user.fullName }}
+                </td>
+                <td class="text-center">{{ user.annonces|length }}</td>
+                <td class="text-center">{{ user.reservations | length }}</td>
+                <td>
+                    <a href="" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -93,9 +93,10 @@ img
     color: #565656;
 }
 
-.fa-star
+.fa-star,.fa-chart-line,.fa-hotel,.fa-folder,.fa-comments,.fa-users,.fa-eye
 {
-    color: #ffcc00}
+    color: #ffcc00
+}
 
 .form-group
 {
@@ -121,4 +122,76 @@ nav
 
 .text-mt-5{
     color: #C9C9C9;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 25%;
+    top: 25%;
+    width: 50%; /* Full width */
+    height: 50%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+}
+
+/* Caption of Modal Image */
+#caption,#content {
+    margin: auto;
+    display: block;
+    text-align: center;
+    color: #ccc;
+    padding: 10px ;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 3s;
+}
+
+@-webkit-keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 90%;
+    }
 }
