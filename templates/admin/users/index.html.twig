@@ -22,7 +22,7 @@
                 <th scope="row">{{ annonce.id }}</th>
                 <td>{{ user.fullName }}</td>
                 <td>
-                    <img class="avatar-medium mr-3" src="{{user.picture }}" alt="avatar de {{ user.fullName }}">
+                    <img class="avatar-medium mr-3" src="{{ app.user.pictureFile }}" alt="avatar de {{ user.fullName }}">
                     {{ user.fullName }}
                 </td>
                 <td class="text-center">{{ user.annonces|length }}</td>

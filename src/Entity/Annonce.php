@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -13,7 +15,9 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
@@ -22,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     fields={"title"},
  *     message="Une annonce possède déja ce titre,merci de le modifier"
  * )
- *
+ *@Vich\Uploadable
  */
 class Annonce implements FormTypeInterface
 {
@@ -61,8 +65,16 @@ class Annonce implements FormTypeInterface
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * @Vich\UploadableField(mapping="images_photocover", fileNameProperty="photocover")
+     * @Assert\Image(mimeTypes={ "image/jpg", "image/jpeg" },mimeTypesMessage="Seul les images de type jpg ou jpeg sont acceptées")
+     * @var File|null
+     */
+    private $photoCoverFile;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     *@var File|null
      */
     private $photoCover;
 
@@ -93,6 +105,13 @@ class Annonce implements FormTypeInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="annonce", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -132,7 +151,7 @@ class Annonce implements FormTypeInterface
             );
                 $days = array_map(function ($dayTimeStamp)
                 {
-                    return new \DateTime(date('Y-m-d',$dayTimeStamp));
+                    return new DateTime(date('Y-m-d',$dayTimeStamp));
                 },$resultat);
                 $notAvailableDays = array_merge($notAvailableDays,$days);
         }
@@ -204,12 +223,15 @@ class Annonce implements FormTypeInterface
         return $this;
     }
 
-    public function getPhotoCover(): ?string
+    /**
+     * @return File|null
+     */
+    public function getPhotoCover()
     {
         return $this->photoCover;
     }
 
-    public function setPhotoCover(string $photoCover): self
+    public function setPhotoCover($photoCover)
     {
         $this->photoCover = $photoCover;
 
@@ -408,4 +430,23 @@ class Annonce implements FormTypeInterface
         }
         return null;
     }
+
+    /**
+     * @param File $photoCoverFile
+     * @throws Exception
+     */
+    public function setPhotoCoverFile(?File $photoCoverFile = null)
+    {
+        $this->photoCoverFile = $photoCoverFile ;
+
+        if ($this->photoCoverFile instanceof UploadedFile ) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPhotoCoverFile(): ?File
+    {
+        return $this->photoCoverFile;
+    }
+
 }

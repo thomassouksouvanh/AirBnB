@@ -5,14 +5,14 @@ namespace App\Form;
 
 
 use App\Entity\Annonce;
-use App\Form\ImageType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -43,10 +43,17 @@ class AnnonceType extends AbstractType
             ->add('introduction',TextType::class,['label'=>'Introduction'])
             ->add('content',TextareaType::class,['label'=>false,'attr'=> [
                 'placeholder' => 'Commentaire']])
-            ->add('photocover',UrlType::class,['label'=>false,'attr'=> [
+            ->add('photoCoverFile',FileType::class,
+                [
+                'label'=>false,
+                'attr' =>
+                    [
                 'placeholder' => 'Photo principale'
-            ]])
-            ->add('rooms',IntegerType::class,['label'=> false,'attr' =>
+
+                ]])
+            ->add('rooms',IntegerType::class,[
+                'label'=> false,
+                'attr' =>
                 [
                     'placeholder'=>'Chambre',
                     'min'=> 0,
@@ -55,8 +62,8 @@ class AnnonceType extends AbstractType
             ->add('images', CollectionType::class,[
                 'label' => false,
                 'entry_type' => ImageType::class,
-                'allow_add' => true,
-                'allow_delete' => true
+                'allow_add'=> true,
+                'allow_delete' => true,
             ]);
     }
 
@@ -66,4 +73,5 @@ class AnnonceType extends AbstractType
             'data_class' => Annonce::class,
         ]);
     }
+
 }

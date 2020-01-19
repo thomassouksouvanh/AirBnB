@@ -15,9 +15,9 @@
             {% if app.user %}
                 <div class="dropdown">
                     <a href="{{ path('account_index') }}">
-                        <img src="{{ app.user.picture }}" class="avatar-mini" alt="photo de profil connecté">
+{#                            <img src="{{ app.user.picture }}" class="avatar-mini" alt="Avatar de {{ user.fullName }}">#}
                     </a>
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte
                     </button>
                     <div class="dropdown-menu dropdown-menu-right bg-light text-center" aria-labelledby="dropdownMenu1">
                         <a class="text-dark" href="{{ path('account_index') }}">Mon profil</a>

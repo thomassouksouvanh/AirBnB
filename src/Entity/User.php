@@ -6,9 +6,14 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -17,8 +22,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     fields={"email"},
  *     message="L'email est déjà utilisé, merci de le modifier"
  * )
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -44,6 +50,13 @@ class User implements UserInterface
      * @Assert\Email(message="Veuillez renseigner un email valide")
      */
     private $email;
+
+    /**
+     * @Vich\UploadableField(mapping="images_avatar", fileNameProperty="picture")
+     * @Assert\Image(mimeTypes={ "image/jpg", "image/jpeg" },mimeTypesMessage="Seul les images de type jpg ou jpeg sont acceptées")
+     * @var File|null
+     */
+    private $pictureFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -95,6 +108,13 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var DateTime
+     */
+    private $updatedAt;
 
 
     public function __construct()
@@ -390,5 +410,53 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @param File|null $pictureFile
+     * @throws Exception
+     */
+    public function setPictureFile(?File $pictureFile = null)
+    {
+        $this->pictureFile = $pictureFile;
+        if ($this->pictureFile instanceof UploadedFile ) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+/**
+* String representation of object
+* @link https://php.net/manual/en/serializable.serialize.php
+* @return string the string representation of the object or null
+* @since 5.1.0
+*/
+    public function serialize()
+    {
+        return serialize([$this->id,
+                          $this->email,
+                          $this->hash,
+            ]);
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        [
+            $this->id,
+            $this->email,
+            $this->hash,
+            ] = unserialize($serialized, array('allowed_classes' => false));
     }
 }

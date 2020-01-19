@@ -12,8 +12,9 @@
             {% endif %}
         </div>
         <div class="card-body">
-            <img id="myImg" src="{{ annonce.photocover }}"
-            alt="Image couverture de l'appartement" style="display: block; width: 100%; height: 20vh;">
+            <img id="myImg" src="{{vich_uploader_asset(annonce,'photoCoverFile')| imagine_filter('thumb')}}">
+            <img id="myImg" src="public/images/default/default-annonce.jpg">
+            alt="Image couverture de l'appartement" >
             <div id="myModal" class="modal">
                 <span class="close">X</span>
                 <div id="caption">{{ annonce.introduction }}</div>

@@ -1,8 +1,10 @@
 {% block _annonce_images_widget %}
         {{ form_widget(form) }}
-            <input type="hidden" id="widgets-counter" value="">
-    <button type="button" id="annonce_images" class="btn btn-secondary">
+            <input type="hidden" id="widgets-counter" value="0">
+<div class="form-group">
+    <button type="button" id="add_images" class="btn btn-secondary">
         <i class="far fa-plus-square"> Ajouter d'autres photos de l'annonce</i></button>
+</div>
 {% endblock %}
 
 {% block _annonce_images_entry_row %}
@@ -16,12 +18,10 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col">
-                        {{ form_widget(form.photo) }}
-                            {{ form_errors(form.photo) }}
+                        {{ form_widget(form.photoFile) }}
                         </div>
                         <div class="col">
                             {{ form_widget(form.caption) }}
-                            {{ form_errors(form.caption) }}
                         </div>
                     </div>
                 </div>
@@ -33,62 +33,6 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
-{% block javascripts %}
-    <script>
-        $('#annonce_images').click(function(){
-            const index = +$('#widgets-counter').val();
 
-            const tmpl = $('#annonce_images').data('prototype').replace(/___name__/g, index);
-
-            $('#annonce_images').append(tmpl);
-            $('#widgets-counter').val(index + 1);
-
-            handleDeleteButtons();
-        });
-
-        function handleDeleteButtons() {
-            $('button[data-action="delete"]').click(function () {
-                const target = this.dataset.target;
-                $(target).remove()
-            });
-        }
-        function updateCounter(){
-            const count = +$('#annonce_images div.form-group').length;
-
-            $('#widgets-counter').val(count);
-        }
-
-        updateCounter();
-        handleDeleteButtons();
-    </script>
-{% endblock %}
-{% block javascripts %}
-    <script>
-        $('#annonce_images').click(function(){
-            const index = +$('#widgets-counter').val();
-
-            const tmpl = $('#annonce_images').data('prototype').replace(/__name__/g, index);
-
-            $('#annonce_images').append(tmpl);
-            $('#widgets-counter').val(index + 1);
-
-            handleDeleteButtons();
-        });
-
-        function handleDeleteButtons() {
-            $('button[data-action="delete"]').click(function () {
-                const target = this.dataset.target;
-                $(target).remove()
-            });
-        }
-        function updateCounter(){
-            const count = +$('#annonce_images div.form-group').length;
-
-            $('#widgets-counter').val(count);
-        }
-
-        updateCounter();
-        handleDeleteButtons();
-    </script>
-{% endblock %}

@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/behat/transliterator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cocur/slugify" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
@@ -27,11 +28,15 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/easycorp/easy-log-handler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fzaninotto/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/imagine/imagine" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jdorn/sql-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jms/metadata" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-components" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-paginator-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/liip/imagine-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ninsuo/symfony-collection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ocramius/package-versions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ocramius/proxy-manager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
@@ -98,6 +103,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/serializer-pack" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/templating" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/test-pack" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation-contracts" />
@@ -113,6 +119,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vich/uploader-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-eventmanager" />

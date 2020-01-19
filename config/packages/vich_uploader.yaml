@@ -1,0 +1,24 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        images_avatar:
+            uri_prefix: /images/picture
+            upload_destination: '%kernel.project_dir%/public/images/picture'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        images_photocover:
+            uri_prefix: /images/photocover
+            upload_destination: '%kernel.project_dir%/public/images/photocover'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        images_gallery:
+            uri_prefix: /images/gallery
+            upload_destination: '%kernel.project_dir%/public/images/gallery'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

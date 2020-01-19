@@ -1,5 +1,6 @@
-.selector-for-some-widget {
+.selector-for-some-widget, body {
     box-sizing: content-box;
+    margin: 0;
 }
 
 hr {
@@ -50,8 +51,8 @@ img
 }
 .avatar-mini
 {
-    width: 4vw;
-    height: 4vh;
+    width: 3vw;
+    height: 3vh;
     border-radius: 50%;
 }
 
@@ -66,7 +67,7 @@ img
 }
 .card
 {
-    height: 68vh;
+    height: auto;
 }
 
 .card-text, .card-title

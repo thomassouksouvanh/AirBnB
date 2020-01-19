@@ -71,6 +71,7 @@ class AccountController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
+
             $entityManager->persist($user);
             $entityManager->flush();
 

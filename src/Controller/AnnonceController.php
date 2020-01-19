@@ -59,7 +59,16 @@ class AnnonceController extends AbstractController
             $annonce->setAuthor($this->getUser());
 
             $entityManager->persist($annonce);
-            $entityManager->flush();
+            try {
+                $entityManager->flush();
+            }catch (Exceptions $e){
+                return $this->render('account/profile.html.twig',
+                    [
+                        'error'=>$e =
+                            'violation de contrainte d\'intégrité: 1048 La colonne \'photo\' ne peut pas être nulle'
+                    ]);
+            }
+
 
             $this->addFlash('success',
                 'Votre annonce <strong>'.$annonce->getTitle().'</strong> a bien été enregistrée !');

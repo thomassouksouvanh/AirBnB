@@ -31,6 +31,7 @@ class AnnonceFixtures extends Fixture
         $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole);
 
+
         $adminUser = new User();
         $adminUser->setFirstName('Thomas')
             ->setLastName('Souksouvanh')
@@ -71,12 +72,12 @@ class AnnonceFixtures extends Fixture
 
         //gestion des annonces
         // Nous gérons les annonces
-        for ($i = 1; $i <= 45; $i++) {
+        for ($i = 1; $i <= 25; $i++) {
 
             $annonce = new Annonce();
 
             $title        = $faker->sentence();
-            $photoCover   = $faker->imageURL(1000, 350);
+            $photoCover   = $faker->image();
             $introduction = $faker->paragraph(2);
             $content      = '<p>' . join('<p></p>', $faker->paragraphs(5)) . '</p>';
 
@@ -94,7 +95,7 @@ class AnnonceFixtures extends Fixture
 
             for ($j = 1; $j <= mt_rand(3, 9); $j++) {
                 $image = new Image();
-                $image->setPhoto($faker->imageUrl())
+                $image->setPhoto($faker->image())
                     ->setCaption($faker->sentence())
                     ->setAnnonce($annonce);
                 $manager->persist($image);
