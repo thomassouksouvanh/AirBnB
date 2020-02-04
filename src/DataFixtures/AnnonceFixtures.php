@@ -38,7 +38,7 @@ class AnnonceFixtures extends Fixture
             ->setEmail('thomas.souksouvanh@sfr.fr')
             ->setIntroduction($faker->sentence())
             ->setDescription($faker->sentence())
-            ->setHash($this->encoder->encodePassword($adminUser, 'Or4txIij'))
+            ->setHash($this->encoder->encodePassword($adminUser, 'root'))
             ->setPicture('https://drive.google.com/file/d/1e0pqOY-aLqb99GvdnbkOU_kPt_Lr_4Yk/view?usp=sharing')
             ->addUserRole($adminRole);
 
